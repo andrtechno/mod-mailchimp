@@ -10,6 +10,7 @@ return [
     'PENDING' => 'В ожидании',
     'TRANSACTIONAL' => 'Транзакционный',
     'ARCHIVED' => 'Архивный',
+    'SUB_DATE' => 'Дата подписки',
     'First Name' => 'имя',
     'Last Name' => 'фамилия',
     'List Name' => 'Название списка',

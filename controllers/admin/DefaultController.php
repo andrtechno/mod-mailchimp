@@ -97,7 +97,8 @@ class DefaultController extends AdminController
                 'status' => Html::tag('span', Yii::t('mailchimp/default', mb_strtoupper($member['status'])), ['class' => 'badge badge-' . $class]),
                 'email' => Html::mailto($member['email_address'], $member['email_address']),
                 'ip_opt' => $member['ip_opt'],
-                'date' => CMS::date(strtotime($member['timestamp_opt'])),
+                'date' => strtotime($member['timestamp_opt']),
+
             ];
 
 

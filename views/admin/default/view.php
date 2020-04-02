@@ -18,7 +18,7 @@ echo GridView::widget([
     //'filterModel' => $searchModel,
     'layoutOptions' => [
         'title' => $this->context->pageName,
-        'buttons'=>[
+        'buttons' => [
             [
                 'label' => Yii::t('mailchimp/default', 'CREATE_MEMBER'),
                 'url' => ['create-member', 'id' => $id],
@@ -48,8 +48,9 @@ echo GridView::widget([
         ],
         [
             'attribute' => 'date',
-            'header' => Yii::t('mailchimp/default', 'date'),
+            'header' => Yii::t('mailchimp/default', 'SUB_DATE'),
             'format' => 'raw',
+            'class' => 'panix\engine\grid\columns\jui\DatepickerColumn',
             'contentOptions' => ['class' => 'text-center'],
         ],
         [
