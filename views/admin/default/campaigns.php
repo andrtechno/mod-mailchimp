@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 /** @var array $lists */
 
 // Set Title and Breadcrumbs
@@ -7,14 +7,9 @@ $this->title = Yii::t('mailchimp/default', 'Lists');
 $this->params['breadcrumbs'][] = Yii::t('mailchimp/default', 'Newsletters');
 $this->params['breadcrumbs'][] = $this->title;
 
-?>
-<?php
-
-/** @var array $lists */
-
-use yii\helpers\Url;
 
 ?>
+
 
 <div class="row">
 
@@ -32,7 +27,7 @@ use yii\helpers\Url;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($items as $list) {
+                <?php foreach($lists as $list) {
 
                     $list_id = $list['id'];
                     $list_name = '<a href="'.Url::to([ 'list', 'id' => $list['id'], 'name' => $list['name'] ]).'">'.$list['name'].'</a>';

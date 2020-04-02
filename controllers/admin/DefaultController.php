@@ -28,7 +28,7 @@ class DefaultController extends AdminController
 	    $lists = Yii::$app->mailchimp->getLists();
 
         return $this->render('lists', [
-            'lists' => $lists['lists'],
+            'items' => $lists['lists'],
         ]);
     }
 
@@ -49,6 +49,15 @@ class DefaultController extends AdminController
             'members' => $members['members'],
             'id' => $listID,
             'name' => $listName
+        ]);
+    }
+
+    public function actionCampaign()
+    {
+        $data = Yii::$app->mailchimp->getCampaignFolders();
+
+        return $this->render('campaigns', [
+            'items' => $data['folders'],
         ]);
     }
 }

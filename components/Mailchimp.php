@@ -2,7 +2,7 @@
 
 namespace panix\mod\mailchimp\components;
 
-use DrewM\MailChimp\MailChimp as baseMailchimp;
+use DrewM\MailChimp\MailChimp as BaseMailchimp;
 use Exception;
 use Yii;
 use yii\base\Component;
@@ -11,7 +11,7 @@ use yii\base\InvalidConfigException;
 /**
  * Class Mailchimp
  *
- * @property baseMailchimp $client
+ * @property BaseMailchimp $client
  * @property array $lists
  */
 class Mailchimp extends Component
@@ -22,7 +22,7 @@ class Mailchimp extends Component
 	public $apiKey;
 
 	/**
-	 * @var baseMailchimp
+	 * @var BaseMailchimp
 	 */
 	private $_mailchimp;
 
@@ -51,13 +51,13 @@ class Mailchimp extends Component
 	 */
 	public function init()
 	{
-		$this->_mailchimp = new baseMailchimp($this->apiKey);
+		$this->_mailchimp = new BaseMailchimp($this->apiKey);
 
 		parent::init();
 	}
 
 	/**
-	 * @return baseMailchimp
+	 * @return BaseMailchimp
 	 */
 	public function getClient()
 	{
@@ -81,8 +81,17 @@ class Mailchimp extends Component
 	 *
 	 * @return array
 	 */
-	public function getListMembers($listID)
-	{
-		return $this->_mailchimp->get('lists/' .$listID. '/members');
-	}
+    public function getListMembers($listID)
+    {
+        return $this->_mailchimp->get('lists/' .$listID. '/members');
+    }
+    /**
+     * Get Mailchimp Campaign Folders
+     *
+     * @return array
+     */
+    public function getCampaignFolders()
+    {
+        return $this->_mailchimp->get('campaign-folders');
+    }
 }
