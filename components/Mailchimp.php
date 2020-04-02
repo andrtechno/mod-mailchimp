@@ -16,33 +16,13 @@ use yii\base\InvalidConfigException;
  */
 class Mailchimp extends Component
 {
-    /**
-     * @var string
-     */
-    public $apiKey;
+
 
     /**
      * @var BaseMailchimp
      */
     private $_mailchimp;
 
-    /**
-     * Mailchimp constructor
-     *
-     * @param array $config
-     *
-     * @throws InvalidConfigException
-     */
-    public function __construct(array $config = [])
-    {
-        if (!isset($config['apiKey']) || !$config['apiKey']) {
-            throw new InvalidConfigException(Yii::t('mailchimp', 'Mailchimp API Key missing!'));
-        }
-
-        $this->apiKey = $config['apiKey'];
-
-        parent::__construct($config);
-    }
 
     /**
      * Mailchimp init
@@ -51,7 +31,7 @@ class Mailchimp extends Component
      */
     public function init()
     {
-        $this->_mailchimp = new BaseMailchimp($this->apiKey);
+        $this->_mailchimp = new BaseMailchimp(Yii::$app->settings->get('mailchimp', 'api_key'));
 
         parent::init();
     }
@@ -78,12 +58,18 @@ class Mailchimp extends Component
      * Get List Members
      *
      * @param string $id
-     *
+     * @param string $method
+     * @return \yii\base\Exception
      * @return array
      */
     public function getListMembers($id)
     {
         return $this->_mailchimp->get("lists/{$id}/members");
+    }
+
+    public function getListMemberCreate($id, $params)
+    {
+        return $this->_mailchimp->post("lists/{$id}/members", $params);
     }
 
     /**

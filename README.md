@@ -36,23 +36,12 @@ Configuration
 Set on your configuration file
 
 ```
-'components' => [
-
-	'mailchimp' => [
-		'class' => 'panix\mod\mailchimp\Module',
-		'apiKey' => 'YOUR_MAILCHIMP_API_KEY'
-	],
-
-],
-
 'modules' => [ 
-    
     'mailchimp' => [
-        'class' => 'panix\mod\mailchimp\components\Mailchimp',
+        'class' => 'panix\mod\mailchimp\Module',
         'showFirstname' => true,
         'showLastname' => true
     ]
-    
 ]
 ```
 
@@ -64,7 +53,7 @@ Override controller example, on modules config
 'modules' => [ 
 
 	'mailchimp' => [
-		'class' => Mailchimp::class,
+		'class' => 'panix\mod\mailchimp\Module',
 		'controllerMap' => [
 			'default' => 'app\controllers\DefaultController',
 		]
@@ -96,7 +85,7 @@ Usage
 \Yii::$app->mailchimp;
 \Yii::$app->mailchimp->getClient();
 \Yii::$app->mailchimp->getLists();
-\Yii::$app->mailchimp->getListMembers($listID);
+\Yii::$app->mailchimp->getListMembers($id);
 ```
 
 Widget Subscription Example

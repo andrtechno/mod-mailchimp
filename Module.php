@@ -4,9 +4,9 @@ namespace panix\mod\mailchimp;
 
 use Yii;
 use panix\engine\WebModule;
-use yii\i18n\PhpMessageSource;
+use yii\base\BootstrapInterface;
 
-class Module extends WebModule
+class Module extends WebModule implements BootstrapInterface
 {
 
     public $icon = 'mailchimp';
@@ -18,6 +18,17 @@ class Module extends WebModule
 
     // Show Titles in the views
     public $showTitles = false;
+
+    /**
+     * @inheritdoc
+     */
+    public function bootstrap($app)
+    {
+        $app->setComponents([
+            'mailchimp' => ['class' => 'panix\mod\mailchimp\components\Mailchimp'],
+        ]);
+
+    }
 
     public function getAdminMenu()
     {
@@ -48,6 +59,18 @@ class Module extends WebModule
                     ],
                 ],
             ],
+        ];
+    }
+
+    public function getInfo()
+    {
+        return [
+            'label' => Yii::t('mailchimp/default', 'MODULE_NAME'),
+            'author' => 'andrew.panix@gmail.com',
+            'version' => '1.0',
+            'icon' => $this->icon,
+            'description' => Yii::t('mailchimp/default', 'MODULE_DESC'),
+            'url' => ['/admin/mailchimp'],
         ];
     }
 }
