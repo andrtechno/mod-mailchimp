@@ -25,7 +25,7 @@ use yii\helpers\Url;
 				<?php foreach($lists as $list) {
 
 					$list_id = $list['id'];
-					$list_name = '<a href="'.Url::to([ 'default/list', 'id' => $list['id'], 'name' => $list['name'] ]).'">'.$list['name'].'</a>';
+					$list_name = '<a href="'.Url::to([ 'list', 'id' => $list['id'], 'name' => $list['name'] ]).'">'.$list['name'].'</a>';
 					$member_count = $list['stats']['member_count'];
 					$member_unsub = $list['stats']['unsubscribe_count'];
 

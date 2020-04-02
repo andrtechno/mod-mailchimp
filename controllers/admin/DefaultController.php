@@ -4,6 +4,7 @@
 namespace panix\mod\mailchimp\controllers\admin;
 
 use Exception;
+use panix\engine\controllers\AdminController;
 use RuntimeException;
 use Yii;
 use yii\filters\AccessControl;
@@ -12,29 +13,9 @@ use yii\web\Controller;
 /**
  * Class DefaultController
  */
-class DefaultController extends Controller
+class DefaultController extends AdminController
 {
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['lists', 'list'],
-                        'roles' => $this->module->roles
-                    ]
-                ],
-                'denyCallback' => static function () {
-	                throw new RuntimeException(Yii::t('traits','You are not allowed to access this page'));
-                }
-            ]
-        ];
-    }
+
 
 	/**
 	 * Displays Lists view

@@ -36,13 +36,10 @@ Configuration
 Set on your configuration file
 
 ```
-use panix\mod\mailchimp\components\Mailchimp as MailchimpComponent;
-use panix\mod\mailchimp\Mailchimp;
-
 'components' => [
 
 	'mailchimp' => [
-		'class' => MailchimpComponent::class,
+		'class' => 'panix\mod\mailchimp\Module',
 		'apiKey' => 'YOUR_MAILCHIMP_API_KEY'
 	],
 
@@ -51,7 +48,7 @@ use panix\mod\mailchimp\Mailchimp;
 'modules' => [ 
     
     'mailchimp' => [
-        'class' => Mailchimp::class,
+        'class' => 'panix\mod\mailchimp\components\Mailchimp',
         'showFirstname' => true,
         'showLastname' => true
     ]
