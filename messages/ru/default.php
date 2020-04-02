@@ -1,11 +1,13 @@
 <?php
 
 return [
+    'MODULE_NAME' => 'Mailchimp',
+    'CAMPAIGNS' => 'Кампании',
     'Email' => 'Email',
     'First Name' => 'имя',
     'Last Name' => 'фамилия',
     'List Name' => 'Название списка',
-    'Lists' => 'Списки',
+    'LISTS' => 'Списки',
     'List' => 'Список',
     'Member Count' => 'Подсчет участников',
     'Name' => 'имя',

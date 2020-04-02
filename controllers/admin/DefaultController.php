@@ -1,14 +1,13 @@
 <?php
 
-
 namespace panix\mod\mailchimp\controllers\admin;
 
-use Exception;
+
+use panix\engine\CMS;
 use panix\engine\controllers\AdminController;
 use RuntimeException;
+use Exception;
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
 
 /**
  * Class DefaultController
@@ -17,47 +16,53 @@ class DefaultController extends AdminController
 {
 
 
-	/**
-	 * Displays Lists view
-	 *
-	 * @return mixed
-	 * @throws Exception
-	 */
-    public function actionLists()
+    /**
+     * Displays Lists view
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    public function actionIndex()
     {
-	    $lists = Yii::$app->mailchimp->getLists();
 
-        return $this->render('lists', [
+        $this->pageName = Yii::t('mailchimp/default', 'LISTS');
+        $this->breadcrumbs[] = [
+            'label' => Yii::t('mailchimp/default', 'MODULE_NAME'),
+            'url' => ['/admin/mailchimp']
+        ];
+        $this->breadcrumbs[] = $this->pageName;
+
+        $lists = Yii::$app->mailchimp->getLists();
+
+        return $this->render('index', [
             'items' => $lists['lists'],
         ]);
     }
 
-	/**
-	 * Displays a single List view
-	 *
-	 * @return mixed
-	 * @throws Exception
-	 */
+    /**
+     * Displays a single List view
+     *
+     * @return mixed
+     * @throws Exception
+     */
     public function actionList()
     {
-        $request  = Yii::$app->request;
-	    $listID   = $request->get('id');
-        $listName = $request->get('name');
-        $members  = Yii::$app->mailchimp->getListMembers($listID);
+        $request = Yii::$app->request;
+        $id = $request->get('id');
+        $name = $request->get('name');
+        $members = Yii::$app->mailchimp->getListMembers($id);
+
+        $this->pageName = Yii::t('mailchimp/default', 'LISTS '.$name);
+        $this->breadcrumbs[] = [
+            'label' => Yii::t('mailchimp/default', 'MODULE_NAME'),
+            'url' => ['/admin/mailchimp']
+        ];
+        $this->breadcrumbs[] = $this->pageName;
 
         return $this->render('list', [
             'members' => $members['members'],
-            'id' => $listID,
-            'name' => $listName
-        ]);
-    }
-
-    public function actionCampaign()
-    {
-        $data = Yii::$app->mailchimp->getCampaignFolders();
-print_r($data);die;
-        return $this->render('campaigns', [
-            'items' => $data['folders'],
+            'id' => $id,
+            'name' => $name
         ]);
     }
 }

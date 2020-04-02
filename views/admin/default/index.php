@@ -1,6 +1,6 @@
 <?php
 
-/** @var array $lists */
+/** @var array $items */
 
 // Set Title and Breadcrumbs
 $this->title = Yii::t('mailchimp/default', 'Lists');
@@ -15,14 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
 use yii\helpers\Url;
 
 ?>
-
+<div class="card">
+    <div class="card-header">
+        <h5><?= $this->context->pageName; ?></h5>
+    </div>
+    <div class="card-body">
 <div class="row">
-
     <div class="col-md-12">
-
         <div class="table-responsive">
-
-            <table class="table no-margin">
+            <table class="table">
                 <thead>
                 <tr>
                     <th class="text-center"><?= Yii::t('mailchimp/default','List Name') ?></th>
@@ -49,10 +50,8 @@ use yii\helpers\Url;
                 <?php } ?>
                 </tbody>
             </table>
-
         </div>
-
     </div>
-
 </div>
-
+    </div>
+</div>
