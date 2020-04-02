@@ -1,7 +1,7 @@
 <?php
 
 
-namespace panix\mod\mailchimp\controllers;
+namespace panix\mod\mailchimp\controllers\admin;
 
 use Exception;
 use RuntimeException;
