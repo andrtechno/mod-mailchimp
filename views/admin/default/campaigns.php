@@ -7,7 +7,7 @@ $this->title = Yii::t('mailchimp/default', 'Lists');
 $this->params['breadcrumbs'][] = Yii::t('mailchimp/default', 'Newsletters');
 $this->params['breadcrumbs'][] = $this->title;
 
-
+print_r($items);die;
 ?>
 
 
@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th class="text-center"><?= Yii::t('mailchimp/default','List Name') ?></th>
                     <th class="text-center"><?= Yii::t('mailchimp/default','Member Count') ?></th>
                     <th class="text-center"><?= Yii::t('mailchimp/default','Unsubscribe Count') ?></th>
-                    <th class="text-center"><?= Yii::t('traits','ID') ?></th>
+                    <th class="text-center"><?= Yii::t('mailchimp/default','ID') ?></th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($lists as $list) {
+                <?php foreach($items as $list) {
 
                     $list_id = $list['id'];
                     $list_name = '<a href="'.Url::to([ 'list', 'id' => $list['id'], 'name' => $list['name'] ]).'">'.$list['name'].'</a>';

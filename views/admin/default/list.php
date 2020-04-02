@@ -28,10 +28,10 @@ use yii\helpers\Html;
             <table class="table no-margin">
                 <thead>
                 <tr>
-                    <th class="text-center"><?= Yii::t('traits','Fullname') ?></th>
-                    <th class="text-center"><?= Yii::t('traits','Firstname') ?></th>
-                    <th class="text-center"><?= Yii::t('traits','Lastname') ?></th>
-                    <th class="text-center"><?= Yii::t('traits','Email') ?></th>
+                    <th class="text-center"><?= Yii::t('mailchimp/default','Fullname') ?></th>
+                    <th class="text-center"><?= Yii::t('mailchimp/default','Firstname') ?></th>
+                    <th class="text-center"><?= Yii::t('mailchimp/default','Lastname') ?></th>
+                    <th class="text-center"><?= Yii::t('mailchimp/default','Email') ?></th>
                     <th class="text-center"><?= Yii::t('mailchimp/default','Subscription\s Date') ?></th>
                     <th class="text-center"><?= Yii::t('mailchimp/default','IP') ?></th>
                 </tr>

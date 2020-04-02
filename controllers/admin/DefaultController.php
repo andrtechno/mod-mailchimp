@@ -55,7 +55,7 @@ class DefaultController extends AdminController
     public function actionCampaign()
     {
         $data = Yii::$app->mailchimp->getCampaignFolders();
-
+print_r($data);die;
         return $this->render('campaigns', [
             'items' => $data['folders'],
         ]);

@@ -28,7 +28,7 @@ use yii\helpers\Url;
                     <th class="text-center"><?= Yii::t('mailchimp/default','List Name') ?></th>
                     <th class="text-center"><?= Yii::t('mailchimp/default','Member Count') ?></th>
                     <th class="text-center"><?= Yii::t('mailchimp/default','Unsubscribe Count') ?></th>
-                    <th class="text-center"><?= Yii::t('traits','ID') ?></th>
+                    <th class="text-center"><?= Yii::t('mailchimp/default','ID') ?></th>
                 </tr>
                 </thead>
                 <tbody>
