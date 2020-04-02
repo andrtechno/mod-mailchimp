@@ -1,0 +1,20 @@
+{
+    "name": "panix/mod-mailchimp",
+    "description": "Mailchimp to manage Mailchimp Email Platform in a Yii2 site.",
+    "keywords": [
+        "yii2 mailchimp", 
+        "mailchimp", 
+    ],
+    "homepage": "https://github.com/panix/mod-mailchimp",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "require": {
+        "yiisoft/yii2": "*",
+        "drewm/mailchimp-api": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "panix\\mod\\mailchimp\\": ""
+        }
+    }
+}
