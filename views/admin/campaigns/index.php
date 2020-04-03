@@ -58,3 +58,11 @@ echo GridView::widget([
 ]);
 Pjax::end();
 
+
+
+
+
+
+echo \panix\mod\mailchimp\widgets\Subscription::widget([
+    'list_id' => '5cc796a017' // if not set raise Error
+]);

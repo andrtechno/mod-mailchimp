@@ -4,7 +4,6 @@ namespace panix\mod\mailchimp\models;
 
 use Yii;
 use panix\engine\SettingsModel;
-use yii\validators\RequiredValidator;
 
 /**
  * Class SettingsForm

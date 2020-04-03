@@ -82,19 +82,24 @@ class Mailchimp extends Component
     {
         return $this->_mailchimp->get('automations');
     }
-
+    public function getReporting()
+    {
+        return $this->_mailchimp->get('reporting');
+    }
     public function getBatches()
     {
         return $this->_mailchimp->get('batches');
     }
 
+    public function getReports($campaign_id = false)
+    {
+        $method_name = ($campaign_id) ? "reports/{$campaign_id}"  : 'reports';
+        return $this->_mailchimp->get($method_name);
+    }
+
     public function getTemplates($id = false, $method = 'get')
     {
-        if ($id) {
-            $method_name = 'templates/' . $id;
-        } else {
-            $method_name = 'templates';
-        }
+        $method_name = ($id) ? "templates/{$id}"  : 'templates';
         $response = $this->_mailchimp->$method($method_name);
         if (isset($response['status'])) {
             if ($response['status'] == 404) {

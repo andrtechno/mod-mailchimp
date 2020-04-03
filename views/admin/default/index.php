@@ -10,6 +10,7 @@ use panix\engine\grid\GridView;
  */
 
 
+
 Pjax::begin();
 echo GridView::widget([
     'tableOptions' => ['class' => 'table table-striped'],
