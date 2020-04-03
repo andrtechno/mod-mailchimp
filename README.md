@@ -11,7 +11,7 @@ MailChimp extension to manage the Mailchimp Email Marketing Platform:
 
  - Website: https://www.mailchimp.com/
  - PHP API: https://github.com/drewm/mailchimp-api
- - Documentation: https://developer.mailchimp.com/documentation/mailchimp/
+ - Documentation: https://mailchimp.com/developer/reference/
 
 Installation
 ------------

@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Url;
 use panix\engine\Html;
-use panix\engine\CMS;
 
 /**
  * @var array $items
@@ -18,14 +17,6 @@ use panix\engine\CMS;
 
         <?php
         \panix\engine\CMS::dump($data);
-
-
-
-        echo CMS::date(strtotime($data['send_time']));
-
-        echo $data['settings']['reply_to'];
-        echo $data['settings']['from_name'];
-        echo $data['settings']['subject_line'];
         ?>
     </div>
 </div>

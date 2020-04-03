@@ -7,7 +7,8 @@ use panix\engine\grid\GridView;
 /**
  * @var string $name
  * @var integer $id
- * @var array $members
+ * @var \yii\data\ArrayDataProvider $dataProvider
+ * @var \yii\web\View $this
  */
 
 
@@ -36,7 +37,7 @@ echo GridView::widget([
         ],
         [
             'attribute' => 'status',
-            'header' => Yii::t('app/default', 'status'),
+            'header' => Yii::t('mailchimp/default', 'STATUS'),
             'format' => 'raw',
             'contentOptions' => ['class' => 'text-center'],
         ],
@@ -55,7 +56,7 @@ echo GridView::widget([
         ],
         [
             'attribute' => 'ip_opt',
-            'header' => Yii::t('mailchimp/default', 'ip_opt'),
+            'header' => Yii::t('mailchimp/default', 'IP'),
             'format' => 'raw',
             'contentOptions' => ['class' => 'text-center'],
         ],

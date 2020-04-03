@@ -20,32 +20,21 @@ echo GridView::widget([
     'columns' => [
         [
             'attribute' => 'name',
-            'header' => Yii::t('mailchimp/default', 'name'),
+            'header' => Yii::t('mailchimp/default', 'NAME'),
             'format' => 'raw',
             'contentOptions' => ['class' => 'text-left'],
-        ],
-        [
-            'attribute' => 'url',
-            'header' => Yii::t('mailchimp/default', 'url'),
-            'format' => 'raw',
-            'contentOptions' => ['class' => 'text-center'],
         ],
         [
             'attribute' => 'emails_sent',
             'header' => Yii::t('mailchimp/default', 'emails_sent'),
             'format' => 'raw',
-            'contentOptions' => ['class' => 'text-center'],
-        ],
-        [
-            'attribute' => 'content_type',
-            'header' => Yii::t('mailchimp/default', 'content_type'),
-            'format' => 'raw',
             'contentOptions' => ['class' => 'text-center','style'=>'width:150px'],
         ],
         [
-            'attribute' => 'needs_block_refresh',
-            'header' => Yii::t('mailchimp/default', 'needs_block_refresh'),
-            'format' => 'html',
+            'attribute' => 'create_time',
+            'header' => Yii::t('mailchimp/default', 'create_time'),
+            'format' => 'raw',
+            'class' => 'panix\engine\grid\columns\jui\DatepickerColumn',
             'contentOptions' => ['class' => 'text-center'],
         ],
         [

@@ -43,12 +43,17 @@ class Module extends WebModule implements BootstrapInterface
                             [
                                 'label' => Yii::t('mailchimp/default', 'CAMPAIGNS'),
                                 'url' => ['/admin/mailchimp/campaigns'],
-                                //'icon' => 'location-map',
+                                'icon' => 'arrow-right',
                             ],
                             [
-                                'label' => Yii::t('contacts/admin', 'MARKERS'),
-                                'url' => ['/admin/mailchimp/markers'],
-                                //'icon' => 'location-marker',
+                                'label' => Yii::t('mailchimp/default', 'AUTOMATIONS'),
+                                'url' => ['/admin/mailchimp/automations'],
+                                'icon' => 'arrow-right',
+                            ],
+                            [
+                                'label' => Yii::t('mailchimp/default', 'TEMPLATES'),
+                                'url' => ['/admin/mailchimp/templates'],
+                                'icon' => 'brush',
                             ],
                             [
                                 'label' => Yii::t('app/default', 'SETTINGS'),

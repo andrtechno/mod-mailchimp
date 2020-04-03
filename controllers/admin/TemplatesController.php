@@ -11,9 +11,9 @@ use Yii;
 use panix\engine\Html;
 
 /**
- * Class DefaultController
+ * Class TemplatesController
  */
-class DefaultController extends AdminController
+class TemplatesController extends AdminController
 {
 
 
@@ -26,21 +26,25 @@ class DefaultController extends AdminController
     public function actionIndex()
     {
 
-        $this->pageName = Yii::t('mailchimp/default', 'LISTS');
+        $this->pageName = Yii::t('mailchimp/default', 'TEMPLATES');
         $this->breadcrumbs[] = [
             'label' => Yii::t('mailchimp/default', 'MODULE_NAME'),
             'url' => ['/admin/mailchimp']
         ];
         $this->breadcrumbs[] = $this->pageName;
 
-        $lists = Yii::$app->mailchimp->getLists();
-        foreach ($lists['lists'] as $data) {
-            $member_count = $data['stats']['member_count'];
-            $member_unsub = $data['stats']['unsubscribe_count'];
+        $response = Yii::$app->mailchimp->getTemplates();
+//CMS::dump($response);die;
+        foreach ($response['templates'] as $data) {
             $result[] = [
                 'name' => $data['name'],
-                'subscribe' => Html::tag('span',$member_count,['class'=>'badge badge-success']),
-                'unsubscribe' => Html::tag('span',$member_unsub,['class'=>'badge badge-danger']),
+                'thumbnail' => Html::a(Html::img($data['thumbnail'],['width'=>100,'class'=>'img-thumbnail']),$data['thumbnail'],['class'=>'thumbnail']),
+                'type' => Html::tag('span',$data['type'],['class'=>'badge badge-secondary']),
+                'category' => Html::tag('span',$data['category'],['class'=>'badge badge-secondary']),
+                //'responsive' => Html::tag('span',(($data['responsive'])?'yes':'no'),['class'=>'badge badge-secondary']),
+                'responsive' => $data['responsive'],
+                'date_created' => strtotime($data['date_created']),
+                'date_edited' => strtotime($data['date_edited']),
                 'options' => Html::a(Html::icon('search'), ['view', 'id' => $data['id'], 'name' => $data['name']], ['class' => 'btn btn-sm btn-outline-secondary']),
             ];
         }
@@ -68,7 +72,7 @@ class DefaultController extends AdminController
     {
         $request = Yii::$app->request;
         $name = $request->get('name');
-        $members = Yii::$app->mailchimp->getListMembers($id);
+        $response = Yii::$app->mailchimp->getTemplatesById($id);
 
         $this->pageName = Yii::t('mailchimp/default', 'LIST', ['name' => $name]);
         $this->breadcrumbs[] = [
@@ -78,7 +82,7 @@ class DefaultController extends AdminController
         $this->breadcrumbs[] = $this->pageName;
 
         $result = [];
-
+CMS::dump($response);die;
         foreach ($members['members'] as $member) {
 
 

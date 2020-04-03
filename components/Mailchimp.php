@@ -7,6 +7,7 @@ use Exception;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
+use yii\web\HttpException;
 
 /**
  * Class Mailchimp
@@ -73,13 +74,40 @@ class Mailchimp extends Component
     }
 
     /**
-     * Get Mailchimp Campaign Folders
+     * Get Mailchimp Automations
      *
      * @return array
      */
-    public function getCampaignFolders()
+    public function getAutomations()
     {
-        return $this->_mailchimp->get('campaign-folders');
+        return $this->_mailchimp->get('automations');
+    }
+
+    public function getBatches()
+    {
+        return $this->_mailchimp->get('batches');
+    }
+
+    public function getTemplates()
+    {
+        $response = $this->_mailchimp->get('templates');
+        if (isset($response['status'])) {
+            if ($response['status'] == 404) {
+                throw new HttpException(404, $response['title'] . ' ' . $response['detail']);
+            }
+        }
+        return $response;
+    }
+
+    public function getTemplatesById($id)
+    {
+        $response = $this->_mailchimp->get("templates/{$id}");
+        if (isset($response['status'])) {
+            if ($response['status'] == 404) {
+                throw new HttpException(404, $response['title'] . ' ' . $response['detail']);
+            }
+        }
+        return $response;
     }
 
     public function getCampaigns()
