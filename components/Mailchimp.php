@@ -72,7 +72,10 @@ class Mailchimp extends Component
     {
         return $this->_mailchimp->post("lists/{$id}/members", $params);
     }
-
+    public function getRoot()
+    {
+        return $this->_mailchimp->get("/");
+    }
     /**
      * Get Mailchimp Automations
      *

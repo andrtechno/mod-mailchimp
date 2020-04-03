@@ -198,7 +198,7 @@ class DefaultController extends AdminController
         $labels=[];
         foreach ($response_fields['merge_fields'] as $field_name => $field) {
             $labels[$field['tag']]= $field['name'];
-         $model->attributeLabels([$field['tag'] => $field['name']]);
+
             if ($field['required']) {
                 $model->addRule($field['tag'], 'required');
             } else {
