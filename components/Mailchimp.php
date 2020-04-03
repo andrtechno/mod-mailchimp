@@ -88,23 +88,19 @@ class Mailchimp extends Component
         return $this->_mailchimp->get('batches');
     }
 
-    public function getTemplates()
+    public function getTemplates($id = false, $method = 'get')
     {
-        $response = $this->_mailchimp->get('templates');
-        if (isset($response['status'])) {
-            if ($response['status'] == 404) {
-                throw new HttpException(404, $response['title'] . ' ' . $response['detail']);
-            }
+        if ($id) {
+            $method_name = 'templates/' . $id;
+        } else {
+            $method_name = 'templates';
         }
-        return $response;
-    }
-
-    public function getTemplatesById($id)
-    {
-        $response = $this->_mailchimp->get("templates/{$id}");
+        $response = $this->_mailchimp->$method($method_name);
         if (isset($response['status'])) {
             if ($response['status'] == 404) {
                 throw new HttpException(404, $response['title'] . ' ' . $response['detail']);
+            } else {
+                throw new InvalidConfigException($response['title'] . ' ' . $response['detail']);
             }
         }
         return $response;

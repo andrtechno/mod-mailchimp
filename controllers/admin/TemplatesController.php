@@ -72,7 +72,7 @@ class TemplatesController extends AdminController
     {
         $request = Yii::$app->request;
         $name = $request->get('name');
-        $response = Yii::$app->mailchimp->getTemplatesById($id);
+        $response = Yii::$app->mailchimp->getTemplates($id);
 
         $this->pageName = Yii::t('mailchimp/default', 'LIST', ['name' => $name]);
         $this->breadcrumbs[] = [
