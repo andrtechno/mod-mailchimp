@@ -5,6 +5,7 @@ namespace panix\mod\mailchimp\controllers\admin;
 
 use panix\engine\CMS;
 use panix\engine\controllers\AdminController;
+use panix\mod\mailchimp\models\forms\TemplatesForm;
 use RuntimeException;
 use Exception;
 use Yii;
@@ -45,7 +46,7 @@ class TemplatesController extends AdminController
                 'responsive' => $data['responsive'],
                 'date_created' => strtotime($data['date_created']),
                 'date_edited' => strtotime($data['date_edited']),
-                'options' => Html::a(Html::icon('search'), ['view', 'id' => $data['id'], 'name' => $data['name']], ['class' => 'btn btn-sm btn-outline-secondary']),
+                'options' => Html::a(Html::icon('edit'), ['update', 'id' => $data['id'], 'name' => $data['name']], ['class' => 'btn btn-sm btn-outline-secondary']).''.Html::a(Html::icon('search'), ['view', 'id' => $data['id'], 'name' => $data['name']], ['class' => 'btn btn-sm btn-outline-secondary']),
             ];
         }
 
@@ -141,18 +142,40 @@ CMS::dump($response);die;
         ]);
     }
 
-    public function actionCreateMember($id)
-    {
-        $params = [];
-        $params['email_address'] = 'dev@pixelion.com.ua';
-        $params['email_type'] = 'html';
-        $params['status'] = 'subscribed';
+    public function actionUpdate($id = false){
 
-        $members = Yii::$app->mailchimp->getListMemberCreate($id, $params);
-        if (isset($members->status)) {
-            CMS::dump($members);
-            die;
+
+       $model = new TemplatesForm();
+        $response2 = Yii::$app->mailchimp->getClient()->get("campaigns/8f73d79a42/content");
+        //CMS::dump($response2);die;
+        if($id){
+            $response = Yii::$app->mailchimp->getTemplates($id);
+            CMS::dump($response);die;
+            $model->html = $response['html'];
         }
-        CMS::dump($members);
+
+
+
+
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+
+
+                if($id){
+
+                }else{
+
+                    $response = Yii::$app->mailchimp->getClient()->post('templates',$model->attributes);
+                }
+                Yii::$app->session->setFlash('success', Yii::t('mailchimp/default', 'SUCCESS_CREATE_TEMPLATE'));
+                return $this->refresh();
+
+            }
+        }
+       // CMS::dump($response);die;
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 }

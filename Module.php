@@ -61,6 +61,16 @@ class Module extends WebModule implements BootstrapInterface
                                 'icon' => 'brush',
                             ],
                             [
+                                'label' => Yii::t('mailchimp/default', 'CONNECTED_SITES'),
+                                'url' => ['/admin/mailchimp/connected-sites'],
+                                'icon' => 'arrow-right',
+                            ],
+                            [
+                                'label' => Yii::t('mailchimp/default', 'LANDING_PAGE'),
+                                'url' => ['/admin/mailchimp/landing-page'],
+                                'icon' => 'arrow-right',
+                            ],
+                            [
                                 'label' => Yii::t('app/default', 'SETTINGS'),
                                 "url" => ['/admin/mailchimp/settings'],
                                 'icon' => 'settings'
@@ -70,6 +80,12 @@ class Module extends WebModule implements BootstrapInterface
                 ],
             ],
         ];
+    }
+
+    public function getAdminSidebar()
+    {
+        $menu = $this->getAdminMenu();
+        return $menu['modules']['items'][0]['items'];
     }
 
     public function getInfo()

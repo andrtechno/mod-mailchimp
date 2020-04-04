@@ -43,7 +43,7 @@ class CampaignsController extends AdminController
                 'emails_sent' => Html::tag('span',$data['emails_sent'],['class'=>'badge badge-secondary']),
                 'content_type' => $data['content_type'],
                 'needs_block_refresh' => ($data['needs_block_refresh'])?'yes':'no',
-                'options' => Html::a(Html::icon('search'), ['view', 'id' => $data['id']], ['class' => 'btn btn-sm btn-outline-secondary']),
+                'options' => Html::a(Html::icon('brush'), ['edit-template', 'id' => $data['id']], ['class' => 'btn btn-sm btn-outline-secondary']).Html::a(Html::icon('search'), ['view', 'id' => $data['id']], ['class' => 'btn btn-sm btn-outline-secondary']),
             ];
         }
 
@@ -71,6 +71,16 @@ class CampaignsController extends AdminController
         $data = Yii::$app->mailchimp->getCampaignsById($id);
         return $this->render('view', [
             'data' => $data,
+        ]);
+    }
+
+    public function actionEditTemplate($id){
+        $response = Yii::$app->mailchimp->getClient()->get("campaigns/{$id}/content");
+
+
+
+        return $this->render('edit-template', [
+            'response' => $response,
         ]);
     }
 

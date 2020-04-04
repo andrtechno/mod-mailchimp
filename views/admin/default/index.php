@@ -11,7 +11,7 @@ use panix\engine\CMS;
  */
 
 
-$response = Yii::$app->mailchimp->getRoot();
+$responseRoot = Yii::$app->mailchimp->getRoot();
 
 ?>
     <div class="row">
@@ -74,19 +74,19 @@ $response = Yii::$app->mailchimp->getRoot();
                                 <th class="text-center">email</th>
                             </tr>
                             <tr>
-                                <td><?= Html::img($response['avatar_url'], ['style' => 'width:100px']); ?></td>
+                                <td><?= Html::img($responseRoot['avatar_url'], ['style' => 'width:50px', 'class' => 'img-thumbnail']); ?></td>
                                 <td class="text-left">
-                                    <?= $response['first_name']; ?> <?= $response['last_name']; ?>
+                                    <?= $responseRoot['first_name']; ?> <?= $responseRoot['last_name']; ?>
                                     <br/>
-                                    <span class="badge badge-secondary"><?= $response['role']; ?></span>
-                                    <span class="badge badge-secondary"><?= $response['pricing_plan_type']; ?></span>
+                                    <span class="badge badge-secondary"><?= $responseRoot['role']; ?></span>
+                                    <span class="badge badge-secondary"><?= $responseRoot['pricing_plan_type']; ?></span>
                                 </td>
-                                <td class="text-center"><?= CMS::date(strtotime($response['member_since']),false); ?></td>
-                                <td class="text-center"><?= CMS::date(strtotime($response['last_login'])); ?></td>
+                                <td class="text-center"><?= CMS::date(strtotime($responseRoot['member_since']), false); ?></td>
+                                <td class="text-center"><?= CMS::date(strtotime($responseRoot['last_login'])); ?></td>
                                 <td class="text-center"><span
-                                            class="badge badge-secondary"><?= $response['total_subscribers']; ?></span>
+                                            class="badge badge-secondary"><?= $responseRoot['total_subscribers']; ?></span>
                                 </td>
-                                <td class="text-center"><?= $response['email']; ?></td>
+                                <td class="text-center"><?= $responseRoot['email']; ?></td>
                             </tr>
                         </table>
                     </div>
@@ -96,4 +96,11 @@ $response = Yii::$app->mailchimp->getRoot();
     </div>
 
 <?php
-\panix\engine\CMS::dump($response);
+
+
+
+
+
+
+
+//\panix\engine\CMS::dump($response);

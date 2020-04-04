@@ -55,6 +55,11 @@ class Mailchimp extends Component
         return $this->_mailchimp->get('lists');
     }
 
+    public function getConnectedSites()
+    {
+        return $this->_mailchimp->get('connected-sites');
+    }
+
     /**
      * Get List Members
      *
@@ -108,6 +113,7 @@ class Mailchimp extends Component
             if ($response['status'] == 404) {
                 throw new HttpException(404, $response['title'] . ' ' . $response['detail']);
             } else {
+                print_r($response['errors']);die;
                 throw new InvalidConfigException($response['title'] . ' ' . $response['detail']);
             }
         }

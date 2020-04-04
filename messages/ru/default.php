@@ -9,6 +9,8 @@ return [
     'SUBSCRIBED' => 'Подписано',
     'UNSUBSCRIBED' => 'Отписано',
     'SUBSCRIBE' => 'Подписан',
+    'CONNECTED_SITES'=>'Подключенные сайты',
+    'LANDING_PAGE'=>'Landing page',
     'UNSUBSCRIBE' => 'Отписан',
     'CLEANED' => 'Очищенный',
     'PENDING' => 'В ожидании',
