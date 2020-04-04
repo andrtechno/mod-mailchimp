@@ -24,6 +24,12 @@ echo GridView::widget([
                 'url' => ['upload'],
                 'icon' => 'upload',
                 'options' => ['class' => 'btn btn-success']
+            ],
+            [
+                'label' => Yii::t('mailchimp/default', 'ADD_FOLDER'),
+                'url' => ['folder'],
+                'icon' => 'add',
+                'options' => ['class' => 'btn btn-secondary']
             ]
         ]
     ],

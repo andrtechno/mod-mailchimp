@@ -6,7 +6,8 @@ namespace panix\mod\mailchimp\controllers\admin;
 use panix\engine\CMS;
 use panix\engine\Html;
 use panix\engine\controllers\AdminController;
-use panix\mod\mailchimp\models\forms\UploadFileForm;
+use panix\mod\mailchimp\models\forms\FileManagerFolderForm;
+use panix\mod\mailchimp\models\forms\FileManagerUploadForm;
 use RuntimeException;
 use Exception;
 use Yii;
@@ -100,7 +101,7 @@ class FileManagerController extends AdminController
         $this->breadcrumbs[] = $this->pageName;
 
 
-        $model = new UploadFileForm();
+        $model = new FileManagerUploadForm();
 
         if (Yii::$app->request->isPost) {
 
@@ -129,6 +130,50 @@ class FileManagerController extends AdminController
         return $this->render('upload', [
             'model' => $model,
         ]);
+    }
+
+    public function actionFolder($id = false)
+    {
+        $this->pageName = Yii::t('mailchimp/default', 'ADD_FOLDER');
+        $this->breadcrumbs[] = [
+            'label' => Yii::t('mailchimp/default', 'MODULE_NAME'),
+            'url' => ['/admin/mailchimp']
+        ];
+        $this->breadcrumbs[] = [
+            'label' => Yii::t('mailchimp/default', 'FILE_MANAGER'),
+            'url' => ['index']
+        ];
+        $this->breadcrumbs[] = $this->pageName;
+
+        $model = new FileManagerFolderForm();
+        if ($id) {
+            $response = Yii::$app->mailchimp->getClient()->get("file-manager/folders/{$id}");
+            $model->name = $response['name'];
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                if ($id) {
+                    Yii::$app->session->setFlash('success', Yii::t('mailchimp/default', 'SUCCESS_UPDATE_FOLDER'));
+                    $response = Yii::$app->mailchimp->getClient()->patch("file-manager/folders/{$id}", $model->attributes);
+                } else {
+                    Yii::$app->session->setFlash('success', Yii::t('mailchimp/default', 'SUCCESS_CREATE_FOLDER'));
+                    $response = Yii::$app->mailchimp->getClient()->post("file-manager/folders", $model->attributes);
+                }
+
+
+                if ($response) {
+                    return $this->refresh();
+                }
+
+
+            }
+        }
+
+        return $this->render('folder-update', [
+            'model' => $model,
+        ]);
+
     }
 
     public function actionDelete($id)

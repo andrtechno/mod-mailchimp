@@ -37,6 +37,7 @@ class CampaignsController extends AdminController
 
 //CMS::dump($response);die;
         foreach ($response['campaigns'] as $data) {
+
             $result[] = [
                 'name'=>$data['settings']['title'].'<br>'.$data['type'].' > '.Html::a($data['recipients']['list_name'],['/admin/mailchimp/default/view','id'=>$data['recipients']['list_id'],'name'=>$data['recipients']['list_name']]),
                 'url'=>Html::a('See template',Url::to($data['long_archive_url'])),
@@ -68,9 +69,9 @@ class CampaignsController extends AdminController
      */
     public function actionView($id)
     {
-        $data = Yii::$app->mailchimp->getCampaignsById($id);
+        $response = Yii::$app->mailchimp->getCampaignsById($id);
         return $this->render('view', [
-            'data' => $data,
+            'response' => $response,
         ]);
     }
 
