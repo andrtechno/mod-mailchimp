@@ -66,6 +66,21 @@ class Module extends WebModule implements BootstrapInterface
                                 'icon' => 'arrow-right',
                             ],
                             [
+                                'label' => Yii::t('mailchimp/default', 'FILE_MANAGER'),
+                                'url' => ['/admin/mailchimp/file-manager'],
+                                'icon' => 'arrow-right',
+                            ],
+                            [
+                                'label' => Yii::t('mailchimp/default', 'ECOMMERCE'),
+                                'url' => ['/admin/mailchimp/ecommerce'],
+                                'icon' => 'arrow-right',
+                            ],
+                            [
+                                'label' => Yii::t('mailchimp/default', 'CONVERSATIONS'),
+                                'url' => ['/admin/mailchimp/conversations'],
+                                'icon' => 'arrow-right',
+                            ],
+                            [
                                 'label' => Yii::t('mailchimp/default', 'LANDING_PAGE'),
                                 'url' => ['/admin/mailchimp/landing-page'],
                                 'icon' => 'arrow-right',
