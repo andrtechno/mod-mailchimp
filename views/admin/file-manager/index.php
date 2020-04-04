@@ -14,8 +14,18 @@ Pjax::begin();
 echo GridView::widget([
     'tableOptions' => ['class' => 'table table-striped'],
     'dataProvider' => $dataProvider,
+    'showFooter' => true,
+    'footerRowOptions' => ['style' => 'font-weight:bold;', 'class' => 'text-center'],
     'layoutOptions' => [
         'title' => $this->context->pageName,
+        'buttons' => [
+            [
+                'label' => Yii::t('mailchimp/default', 'UPLOAD_FILE'),
+                'url' => ['upload'],
+                'icon' => 'upload',
+                'options' => ['class' => 'btn btn-success']
+            ]
+        ]
     ],
     'columns' => [
         [
@@ -34,26 +44,28 @@ echo GridView::widget([
             'attribute' => 'file_size',
             'header' => Yii::t('mailchimp/default', 'file_size'),
             'format' => 'raw',
-            'contentOptions' => ['class' => 'text-left'],
+            'contentOptions' => ['class' => 'text-center'],
         ],
         [
             'attribute' => 'created_at',
+            'class' => 'panix\engine\grid\columns\jui\DatepickerColumn',
             'header' => Yii::t('mailchimp/default', 'created_at'),
             'format' => 'raw',
-            'contentOptions' => ['class' => 'text-left'],
+            'contentOptions' => ['class' => 'text-center'],
         ],
         [
             'attribute' => 'size',
             'header' => Yii::t('mailchimp/default', 'size'),
             'format' => 'raw',
-            'contentOptions' => ['class' => 'text-left'],
+            'contentOptions' => ['class' => 'text-center'],
+            'footer' =>$total_file_size,
         ],
-        /*[
-            'attribute' => 'status',
-            'header' => Yii::t('mailchimp/default', 'status'),
+        [
+            'attribute' => 'folder',
+            'header' => Yii::t('mailchimp/default', 'folder'),
             'format' => 'raw',
             'contentOptions' => ['class' => 'text-center'],
-        ],*/
+        ],
         [
             'attribute' => 'options',
             'header' => Yii::t('app/default', 'OPTIONS'),
