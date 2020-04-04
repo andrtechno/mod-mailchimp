@@ -10,9 +10,62 @@ use panix\engine\CMS;
  */
 
 ?>
+<?= Html::beginForm(); ?>
+<?php echo Html::submitButton('Отправить тестовое письмо',['name'=>'send_test','value'=>'1','class'=>'btn btn-success']); ?>
+<?php if($response['status'] == 'save'){ ?>
+<?php echo Html::submitButton('Начать отправку подписчикам',['name'=>'send','value'=>'1','class'=>'btn btn-success']); ?>
+    <?php } ?>
+<?php Html::endForm(); ?>
 <div class="row">
     <div class="col-sm-6">
-
+        <?php if(isset($response['report_summary'])){ ?>
+        <div class="card">
+            <div class="card-header">
+                <h5>Reports</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <td class="text-left">opens</td>
+                        <td colspan="2" class="text-left"><?= $response['report_summary']['opens']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">unique_opens</td>
+                        <td colspan="2" class="text-left"><?= $response['report_summary']['unique_opens']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">open_rate</td>
+                        <td colspan="2" class="text-left"><?= $response['report_summary']['open_rate']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">clicks</td>
+                        <td colspan="2" class="text-left"><?= $response['report_summary']['clicks']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">subscriber_clicks</td>
+                        <td colspan="2" class="text-left"><?= $response['report_summary']['subscriber_clicks']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">click_rate</td>
+                        <td colspan="2" class="text-left"><?= $response['report_summary']['click_rate']; ?></td>
+                    </tr>
+                    <tr>
+                        <th colspan="3" class="text-center">E-commerce</th>
+                    </tr>
+                    <tr>
+                        <th class="text-center">Всего заказов</th>
+                        <th class="text-center">Всего потрачено</th>
+                        <th class="text-center">Общий доход</th>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><?= $response['report_summary']['ecommerce']['total_orders']; ?></td>
+                        <td class="text-center"><?= $response['report_summary']['ecommerce']['total_spent']; ?></td>
+                        <td class="text-center"><?= $response['report_summary']['ecommerce']['total_revenue']; ?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <?php } ?>
         <?php
         \panix\engine\CMS::dump($response);
         ?>
@@ -25,7 +78,6 @@ use panix\engine\CMS;
             </div>
             <div class="card-body">
                 <table class="table table-striped">
-
                     <tr>
                         <td class="text-left">opens</td>
                         <td class="text-left"><?= Yii::$app->formatter->asBoolean($response['tracking']['opens']); ?></td>
@@ -137,5 +189,115 @@ use panix\engine\CMS;
         </div>
     </div>
 </div>
+<?php
+$responseReport = Yii::$app->mailchimp->getClient()->get("reports/{$id}");
+
+//CMS::dump($responseReport);die;
+
+//$responseReport2 = Yii::$app->mailchimp->getClient()->get("reports/{$id}/locations");
+//CMS::dump($responseReport2);die;
+$highchartsData=[];
+$highchartsData2=[];
+$highchartsCategories=[];
+//sort($responseReport['timeseries']);
+foreach ($responseReport['timeseries'] as $timeline){
+    $highchartsCategories[]=date('H:i',strtotime($timeline['timestamp']));
+    $highchartsData[]=$timeline['emails_sent'];
+    $highchartsData2[]=$timeline['unique_opens'];
+}
 
 
+
+//CMS::dump($highchartsCategories);die;
+echo \panix\ext\highcharts\Highcharts::widget([
+    'scripts' => [
+        // 'highcharts-more', // enables supplementary chart types (gauge, arearange, columnrange, etc.)
+        'modules/exporting',
+        //'modules/drilldown',
+    ],
+    'options' => [
+        'chart' => [
+            'type' => 'column',
+            'plotBackgroundColor' => null,
+            'plotBorderWidth' => null,
+            'plotShadow' => false,
+            'backgroundColor' => 'rgba(255, 255, 255, 0)'
+        ],
+        'title' => ['text' => 'timeline'],
+        'xAxis' => [
+            'type' => 'category',
+            //'categories' => range(1, cal_days_in_month(CAL_GREGORIAN, $month, $year))
+            'categories' => $highchartsCategories
+        ],
+        'yAxis' => [
+            'title' => ['text' => 'Сумма']
+        ],
+
+        'legend' => [
+            'enabled' => false
+        ],
+        'plotOptions' => [
+            'areaspline' => [
+                'fillOpacity' => 0.5
+            ],
+            'area' => [
+                'pointStart' => 1940,
+                'marker' => [
+                    'enabled' => false,
+                    'symbol' => 'circle',
+                    'radius' => 2,
+                    'states' => [
+                        'hover' => [
+                            'enabled' => true
+                        ]
+                    ]
+                ]
+            ],
+            'series' => [
+                'borderWidth' => 0,
+                'dataLabels' => [
+                    'enabled' => true,
+                    'format' => '{point.y:.1f}%'
+                ]
+            ]
+        ],
+        // 'tooltip' => array(
+        //     'shared' => true,
+        //     'valueSuffix' => ' кол.'
+        // ),
+        'tooltip' => [
+            'headerFormat' => '<span style="font-size:11px">{series.name}</span><br>',
+            'pointFormat' => '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        ],
+        'series' => [
+            // array('name' => 'Сумма заказов', 'data' => $data_total),
+            //array('name' => 'Заказы', 'data' => $data),
+            [
+                'name' => 'Clicns',
+                'colorByPoint' => true,
+                'tooltip' => [
+                    'pointFormat' => '<span style="font-weight: bold; color: {series.color}">{series.name}</span>: {point.value}<br/><b>Продано товаров: {point.products}<br/>{point.total_price}</b>' // {point.y:.1f}
+                ],
+                'data' => $highchartsData
+            ],
+            /*[
+                'name' => 'test',
+                'colorByPoint' => true,
+                'tooltip' => [
+                    'pointFormat' => '<span style="font-weight: bold; color: {series.color}">{series.name}</span>: {point.value}<br/><b>Продано товаров: {point.products}<br/>{point.total_price}</b>' // {point.y:.1f}
+                ],
+                'data' => $highchartsData2
+            ],*/
+        ],
+
+        /*"drilldown" => [
+            'activeDataLabelStyle' => [
+                'color' => '#ea5510',//'#343a40',
+                'cursor' => 'pointer',
+                'fontWeight' => 'bold',
+                'textDecoration' => 'none',
+            ],
+            "series" => $highchartsDrill
+        ]*/
+    ]
+]);

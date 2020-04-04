@@ -19,6 +19,7 @@ return [
     'ARCHIVED' => 'Архивный',
     'SUB_DATE' => 'Дата подписки',
     'IP' => 'IP адрес',
+    'CAMPAIGNS_NAME'=>'Компания {0}',
     'STATUS' => 'Статус',
     'HISTORY' => 'История',
     'UPLOAD_TO'=>'Загрузка файла в {0}',
@@ -33,7 +34,7 @@ return [
     'LIST' => 'Список {name}',
     'COUNT_SUBSCRIBE' => 'Подсчет участников',
     'NAME' => 'Название',
-    'Submit' => 'отправляй',
+    'RESPONSE_ERROR' => '<strong>{0} {1}</strong>: {2}',
     'Subscribe' => 'Подписывайся',
     'COUNT_UNSUBSCRIBE' => 'Отказ от рассылки',
 ];

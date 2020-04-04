@@ -45,6 +45,7 @@ class Mailchimp extends Component
         return $this->_mailchimp;
     }
 
+
     /**
      * Get Mailchimp Lists
      *

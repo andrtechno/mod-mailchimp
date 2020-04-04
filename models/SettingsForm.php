@@ -16,15 +16,18 @@ class SettingsForm extends SettingsModel
     protected $module = 'mailchimp';
 
     public $api_key;
-
+    public $list_user;
+    public $list_order;
+    public $list_feedback;
+    public $test_emails;
+    public $test_send_type;
 
     public function rules()
     {
         return [
-           // ['schedule', 'validateSchedule', 'skipOnEmpty' => true],
-           // ['address', 'validateLang', 'skipOnEmpty' => true],
             [['api_key'], "required"],
-            [['api_key'], 'string'],
+            [['api_key', 'list_user','test_emails','test_send_type'], 'string'],
+            [['list_user', 'list_order', 'list_feedback'], "required", 'on' => ['api']],
         ];
     }
 
@@ -32,6 +35,11 @@ class SettingsForm extends SettingsModel
     {
         return [
             'api_key' => '',
+            'list_user' => null,
+            'list_order' => null,
+            'list_feedback' => null,
+            'test_emails'=>'',
+            'test_send_type'=>'',
         ];
     }
 }

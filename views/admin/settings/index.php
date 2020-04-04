@@ -3,7 +3,25 @@
 use panix\engine\Html;
 use panix\engine\bootstrap\ActiveForm;
 
+$response = Yii::$app->mailchimp->getClient()->get("/");
+
 $form = ActiveForm::begin();
+
+$tabs[] = [
+    'label' => $model::t('TAB_GENERAL'),
+    'content' => $this->render('_main', ['form' => $form, 'model' => $model]),
+    'active' => true,
+];
+
+if ($response) {
+    $model->setScenario('api');
+    $tabs[] = [
+        'label' => $model::t('TAB_GENERAL2'),
+        'content' => $this->render('_main2', ['form' => $form, 'model' => $model]),
+    ];
+}else{
+    $model->setScenario('api_no');
+}
 ?>
     <div class="card">
         <div class="card-header">
@@ -12,13 +30,7 @@ $form = ActiveForm::begin();
         <div class="card-body">
             <?php
             echo yii\bootstrap4\Tabs::widget([
-                'items' => [
-                    [
-                        'label' => $model::t('TAB_GENERAL'),
-                        'content' => $this->render('_main', ['form' => $form, 'model' => $model]),
-                        'active' => true,
-                    ],
-                ],
+                'items' => $tabs,
             ]);
             ?>
         </div>

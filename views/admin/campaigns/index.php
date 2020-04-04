@@ -37,8 +37,8 @@ echo GridView::widget([
             'contentOptions' => ['class' => 'text-center'],
         ],
         [
-            'attribute' => 'content_type',
-            'header' => Yii::t('mailchimp/default', 'content_type'),
+            'attribute' => 'status',
+            'header' => Yii::t('mailchimp/default', 'STATUS'),
             'format' => 'raw',
             'contentOptions' => ['class' => 'text-center','style'=>'width:150px'],
         ],
