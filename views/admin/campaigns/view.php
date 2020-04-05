@@ -18,7 +18,7 @@ use panix\engine\CMS;
 <?php Html::endForm(); ?>
 <div class="row">
     <div class="col-sm-6">
-        <?php if(isset($response['report_summary'])){ ?>
+        <?php if($response['status'] != 'save' && isset($response['report_summary'])){ ?>
         <div class="card">
             <div class="card-header">
                 <h5>Reports</h5>
